@@ -3,11 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 
-import { CommonModule } from './common/common.module'
+import { CommonModule } from '@common/common.module'
 import { ConfigService } from '@common/services'
 
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { AppUpdate } from './app.update'
 
 import { options } from '@utils/config'
 
@@ -25,6 +25,6 @@ import { options } from '@utils/config'
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppUpdate],
 })
 export class AppModule {}
