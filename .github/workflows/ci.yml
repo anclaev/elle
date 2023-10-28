@@ -10,11 +10,6 @@ jobs:
     steps:
       - name: Клонирование репозитория
         uses: actions/checkout@v3
-
-      - name: Создание переменных окружения
-        run: |
-          echo "${{ secrets.ENV_PROD_FILE }}" > .env.production
-
       - name: Настройка QEMU
         uses: docker/setup-qemu-action@v3
       - name: Настройка Docker Buildx
@@ -29,8 +24,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ellechildbot:latest
-          build-args: ${{ secrets.ENV_PROD_FILE }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elle:latest
 
   deploy:
     runs-on: ubuntu-latest
