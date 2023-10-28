@@ -5,7 +5,7 @@ FROM node:${node_version} AS deps
 
 
 LABEL maintainer="anclaev<iahugo@yandex.ru>"
-LABEL description="Elle Bot"
+LABEL description="Elle Daughter Bot"
 
 WORKDIR /api
 
@@ -26,24 +26,16 @@ RUN yarn build
 # Stage 3: Запуск приложения
 FROM node:${node_version} AS runtime
 
-WORKDIR /home/user/ellechildbot/api
+WORKDIR /home/user/elle-daugher-bot/api
 
 ARG node_env=production
-ARG pg_user=local
-ARG pg_pass=local
-ARG api_port=3000
-
 ENV NODE_ENV=${node_env} 
-ENV PG_USER=${pg_user}
-ENV PG_PASS=${pg_pass}
-ENV APP_PORT=${api_port}
 
 COPY --from=deps /api/node_modules ./node_modules
 COPY --from=deps /api/package.json ./package.json
-COPY --from=builder /api/.env.${node_env} ./.env.${node_env}
 COPY --from=builder /api/dist ./dist
 
-EXPOSE ${api_port}
+EXPOSE 3001
 
 CMD ["npm", "run", "start:production"]
 
