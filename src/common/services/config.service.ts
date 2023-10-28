@@ -29,6 +29,11 @@ export class ConfigService extends RootConfigService {
 
     const options: MongooseModuleFactoryOptions = {
       uri: `mongodb://${db.host}:${db.port}/${db.name}`,
+      authSource: 'admin',
+      auth: {
+        password: db.password,
+        username: db.user,
+      },
     }
     return options
   }
