@@ -46,4 +46,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{secrets.SSH_PASSPHRASE}}
           script: |
-            bash /home/${{ secrets.SSH_USERNAME }}/projects/elle/run.sh
+            cd /home/${{ secrets.SSH_USERNAME }}/projects/elle && ./run.sh
