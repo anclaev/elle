@@ -1,5 +1,6 @@
 import { ConfigService as RootConfigService } from '@nestjs/config'
 import { MongooseModuleFactoryOptions } from '@nestjs/mongoose'
+import { TelegrafModuleOptions } from 'nestjs-telegraf'
 import { Injectable } from '@nestjs/common'
 
 import { IConfig } from '../interfaces/config'
@@ -15,16 +16,16 @@ export class ConfigService extends RootConfigService {
   }
 
   port(): number {
-    return Number(this.get('APP_PORT'))
+    return Number(this.val('APP_PORT'))
   }
 
   dbOptions(): MongooseModuleFactoryOptions {
     const db = {
-      host: this.get<string>('MONGO_HOST'),
-      port: this.get<number>('MONGO_PORT'),
-      user: this.get<string>('MONGO_USER'),
-      password: this.get<string>('MONGO_PASS'),
-      name: this.get<string>('MONGO_DB'),
+      host: this.val<string>('MONGO_HOST'),
+      port: this.val<number>('MONGO_PORT'),
+      user: this.val<string>('MONGO_USER'),
+      password: this.val<string>('MONGO_PASS'),
+      name: this.val<string>('MONGO_DB'),
     }
 
     const options: MongooseModuleFactoryOptions = {
@@ -35,6 +36,14 @@ export class ConfigService extends RootConfigService {
         username: db.user,
       },
     }
+    return options
+  }
+
+  telegrafOptions(): TelegrafModuleOptions {
+    const options: TelegrafModuleOptions = {
+      token: this.val<string>('TELEGRAM_TOKEN'),
+    }
+
     return options
   }
 }

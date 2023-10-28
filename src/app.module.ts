@@ -1,3 +1,4 @@
+import { TelegrafModule } from 'nestjs-telegraf'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
@@ -17,6 +18,10 @@ import { options } from '@utils/config'
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.dbOptions(),
+    }),
+    TelegrafModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => config.telegrafOptions(),
     }),
   ],
   controllers: [AppController],
