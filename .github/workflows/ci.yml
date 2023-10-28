@@ -38,14 +38,11 @@ jobs:
       - build
 
     steps:
-      - uses: actions/checkout@v3
       - name: Деплой образа
-        env:
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          HOSTNAME: ${{ secrets.SSH_HOSTNAME}}
-          USERNAME: ${{ secrets.SSH_USERNAME }}
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
-
-          cd /home/${{ secrets.SSH_USERNAME }}/projects/elle && ./run.sh
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SSH_HOSTNAME }}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            bash /home/${{ secrets.SSH_USERNAME }}/projects/elle/run.sh
