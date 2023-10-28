@@ -29,5 +29,23 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ellebotchild:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ellechildbot:latest
           build-args: ${{ secrets.ENV_PROD_FILE }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Деплой образа
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.SSH_HOSTNAME}}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
+
+          cd /home/${{ secrets.SSH_USERNAME }}/projects/elle && ./run.sh
