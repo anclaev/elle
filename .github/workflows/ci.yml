@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Клонирование репозитория
+      - name: Клонирование репозитория.
         uses: actions/checkout@v3
       - name: Настройка QEMU
         uses: docker/setup-qemu-action@v3
