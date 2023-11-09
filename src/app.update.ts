@@ -2,7 +2,7 @@ import { Action, Start, Update } from 'nestjs-telegraf'
 import { Injectable } from '@nestjs/common'
 import { Context } from 'telegraf'
 
-import { StartButtons } from 'app.buttons'
+import { StartButtons } from './app.buttons'
 
 @Update()
 @Injectable()
