@@ -4,6 +4,8 @@ import { AppModule } from './app.module'
 
 import { ConfigService, LoggerService } from '@common/services'
 
+require('module-alias/register')
+
 const bootstrap = async (): Promise<void> => {
   const app = await NestFactory.create(AppModule)
 

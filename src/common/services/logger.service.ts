@@ -6,6 +6,10 @@ export class LoggerService extends ConsoleLogger {
     super(ctx || 'Elle Bot')
   }
 
+  ctx() {
+    return this.context
+  }
+
   setCtx(ctx: string) {
     this.context = ctx
   }

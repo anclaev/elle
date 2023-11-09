@@ -3,4 +3,5 @@ node_modules
 .yarn
 .env.*
 build
+coverage
 yarn.lock
