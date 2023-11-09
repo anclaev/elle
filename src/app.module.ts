@@ -1,4 +1,3 @@
-import { TelegrafModule } from 'nestjs-telegraf'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
@@ -10,7 +9,6 @@ import { CommonModule } from '@common/common.module'
 import { ConfigService } from '@common/services'
 
 import { AppController } from './app.controller'
-import { AppUpdate } from './app.update'
 
 import { options } from '@utils/config'
 
@@ -26,6 +24,5 @@ import { options } from '@utils/config'
     TelegramModule,
   ],
   controllers: [AppController],
-  providers: [AppUpdate],
 })
 export class AppModule {}

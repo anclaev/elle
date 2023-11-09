@@ -1,6 +1,6 @@
 import { Update } from 'telegraf/typings/core/types/typegram'
+import { SceneContext } from 'telegraf/typings/scenes'
 import { Context } from 'telegraf'
-import e from 'express'
 
 interface SessionData {
   choosen_auth?: string
@@ -10,7 +10,10 @@ export interface UserSessionContext extends Context {
   session?: SessionData
 }
 
-export type MySceneContext = Context & UserSessionContext
+export type MyContext = Context & UserSessionContext
+
+export type MySceneContext = Context & SceneContext
+
 export type MySceneActionContext = MySceneContext & {
   update: Update.CallbackQueryUpdate
 }

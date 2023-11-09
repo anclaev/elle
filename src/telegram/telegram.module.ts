@@ -7,6 +7,8 @@ import { SessionModule } from 'src/session/session.module'
 import { SessionService } from 'src/session/session.service'
 
 import { TelegramService } from './telegram.service'
+import { TelegramUpdate } from './telegram.update'
+import { CHOOSE_SCENES } from './scenes'
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { TelegramService } from './telegram.service'
       }),
     }),
   ],
-  providers: [TelegramService],
+  providers: [TelegramService, TelegramUpdate, ...CHOOSE_SCENES],
   exports: [TelegramService],
 })
 export class TelegramModule {}
