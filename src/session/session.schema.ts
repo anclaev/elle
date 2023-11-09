@@ -2,8 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document, Types } from 'mongoose'
 import { SceneContext } from 'telegraf/typings/scenes'
 
+export type SessionDocument = Session & Document
+
 @Schema()
-export class TelegramSession {
+export class Session {
   _id: Types.ObjectId
 
   @Prop({ required: true, type: Number })
@@ -16,5 +18,4 @@ export class TelegramSession {
   createdAt: Date
 }
 
-export const TelegramSessionSchema =
-  SchemaFactory.createForClass(TelegramSession)
+export const SessionSchema = SchemaFactory.createForClass(Session)

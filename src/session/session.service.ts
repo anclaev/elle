@@ -6,21 +6,21 @@ import { Model } from 'mongoose'
 
 import { LoggerService } from '@common/services'
 
-import { TelegramSession } from './session.schema'
+import { Session } from './session.schema'
 
 const EMPTY_SESSION = { __scenes: {} }
 
 @Injectable()
 export class SessionService {
   constructor(
-    @InjectModel(TelegramSession.name)
-    private readonly telegramSessionModel: Model<TelegramSession>,
+    @InjectModel(Session.name)
+    private readonly sessionModel: Model<Session>,
     private readonly logger: LoggerService,
   ) {}
 
   async getSession(userId: number): Promise<SceneContext['session']> {
     try {
-      const user = await this.telegramSessionModel.findOne({ userId })
+      const user = await this.sessionModel.findOne({ userId })
 
       if (user) {
         return user.session
@@ -35,13 +35,13 @@ export class SessionService {
 
   async saveSession(session: SceneContext['session'], userId: number) {
     try {
-      const user = await this.telegramSessionModel.findOne({ userId })
+      const user = await this.sessionModel.findOne({ userId })
 
       if (user) {
         user.session = session
         await user.save()
       } else {
-        const newUser = new this.telegramSessionModel({
+        const newUser = new this.sessionModel({
           userId,
           session,
         })
