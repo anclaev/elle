@@ -11,6 +11,15 @@ export class Session {
   @Prop({ required: true, type: Number })
   userId: number
 
+  @Prop({ default: null })
+  firstname: string
+
+  @Prop({ default: null })
+  lastname: string
+
+  @Prop({ default: null })
+  username: string
+
   @Prop({ type: Object })
   session: SceneContext['session']
 

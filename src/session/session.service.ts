@@ -4,6 +4,8 @@ import { Injectable } from '@nestjs/common'
 import { Middleware } from 'telegraf'
 import { Model } from 'mongoose'
 
+import { TelegramUser } from 'src/telegram/telegram.interfaces'
+
 import { LoggerService } from '@common/services'
 
 import { Session } from './session.schema'
@@ -33,17 +35,28 @@ export class SessionService {
     }
   }
 
-  async saveSession(session: SceneContext['session'], userId: number) {
+  async saveSession(
+    session: SceneContext['session'],
+    { userId, ...userData }: TelegramUser,
+  ) {
     try {
       const user = await this.sessionModel.findOne({ userId })
 
       if (user) {
         user.session = session
+
+        if (user.firstname) user.firstname = userData.first_name!
+        if (user.lastname) user.lastname = userData.last_name!
+        if (user.username) user.username = userData.username!
+
         await user.save()
       } else {
         const newUser = new this.sessionModel({
           userId,
           session,
+          firstname: userData.first_name,
+          lastname: userData.last_name,
+          username: userData.username,
         })
 
         await newUser.save()
@@ -55,7 +68,8 @@ export class SessionService {
 
   createMongoDBSession(): Middleware<SceneContext> {
     return async (ctx, next) => {
-      const id = ctx.chat!.id
+      const userId = ctx.chat!.id
+      const userData = ctx.from
 
       let session: SceneContext['session'] = EMPTY_SESSION
 
@@ -68,10 +82,16 @@ export class SessionService {
         },
       })
 
-      session = (await this.getSession(id)) || EMPTY_SESSION
+      session = (await this.getSession(userId)) || EMPTY_SESSION
 
       await next()
-      await this.saveSession(session, id)
+
+      await this.saveSession(session, {
+        userId,
+        first_name: userData?.first_name,
+        last_name: userData?.last_name,
+        username: userData?.username,
+      })
     }
   }
 }

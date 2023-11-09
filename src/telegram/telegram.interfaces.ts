@@ -29,3 +29,15 @@ export interface TelegrafContactMessage extends TelegrafMessage {
     phone_number: string
   }
 }
+
+export type MyAction = {
+  text: string
+  callback: string
+}
+
+export interface TelegramUser {
+  userId: number
+  first_name?: string
+  last_name?: string
+  username?: string
+}

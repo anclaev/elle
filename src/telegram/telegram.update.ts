@@ -4,7 +4,7 @@ import { Markup } from 'telegraf'
 
 import { LoggerService } from '@common/services'
 
-import { ACTION_ABOUT_ME, ACTION_AUTH, SCENES } from './telegram.constants'
+import { ACTION_ABOUT_ME, ACTION_DATE, SCENES } from './telegram.constants'
 import { MySceneContext } from './telegram.interfaces'
 
 @Update()
@@ -23,7 +23,10 @@ export class TelegramUpdate {
               text: ACTION_ABOUT_ME.text,
               callback_data: ACTION_ABOUT_ME.callback,
             },
-            { text: ACTION_AUTH.text, callback_data: ACTION_AUTH.callback },
+            {
+              text: ACTION_DATE.text,
+              callback_data: ACTION_DATE.callback,
+            },
           ],
         ]),
       )
