@@ -1,0 +1,19 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Тестирование
+    runs-on: ubuntu-latest
+    steps:
+      - name: Клонирование репозитория
+        uses: actions/checkout@v3
+
+      - name: Сборка образа
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/elle:test --target=builder .
+
+      - name: Запуск модульных тестов
+        run: docker run ${{ secrets.DOCKERHUB_USERNAME }}/elle:test sh -c 'npm run test'
