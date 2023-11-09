@@ -6,6 +6,8 @@ import { ConfigService } from '@common/services'
 import { SessionModule } from 'src/session/session.module'
 import { SessionService } from 'src/session/session.service'
 
+import { TelegramService } from './telegram.service'
+
 @Module({
   imports: [
     TelegrafModule.forRootAsync({
@@ -17,6 +19,7 @@ import { SessionService } from 'src/session/session.service'
       }),
     }),
   ],
-  providers: [],
+  providers: [TelegramService],
+  exports: [TelegramService],
 })
 export class TelegramModule {}
