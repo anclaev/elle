@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Сборка проекта
     runs-on: ubuntu-latest
     steps:
       - name: Клонирование репозитория
@@ -27,6 +28,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/elle:latest
 
   deploy:
+    name: Доставка приложения
     runs-on: ubuntu-latest
     needs:
       - build
