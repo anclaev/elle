@@ -3,7 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 
+import { TelegramModule } from './telegram/telegram.module'
 import { SessionModule } from './session/session.module'
+
 import { CommonModule } from '@common/common.module'
 import { ConfigService } from '@common/services'
 
@@ -21,10 +23,7 @@ import { options } from '@utils/config'
       useFactory: (config: ConfigService) => config.dbOptions(),
     }),
     SessionModule,
-    TelegrafModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => config.telegrafOptions(),
-    }),
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppUpdate],
