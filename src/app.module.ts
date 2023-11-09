@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 
+import { SessionModule } from './session/session.module'
 import { CommonModule } from '@common/common.module'
 import { ConfigService } from '@common/services'
 
@@ -19,6 +20,7 @@ import { options } from '@utils/config'
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.dbOptions(),
     }),
+    SessionModule,
     TelegrafModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.telegrafOptions(),
